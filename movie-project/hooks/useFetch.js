@@ -20,6 +20,6 @@ export default function useFetcher(url, options) {
     };
     fetchData();
   }, [options, url]);
-  return { data, loading, error };
+  return [ data, loading, error ];
 }
 
