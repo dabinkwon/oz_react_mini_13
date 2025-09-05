@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { imgUrl } from "../url/imgUrl";
+import { imgUrl } from "../api/imgUrl";
 import useFetch from "../hooks/useFetch";
+import { apiKey } from "../api/apiConfig";
 
 const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlODI2ZjVkOTZmMDY3ZjE2MmFkYWViZGQzZGE3ZGJmNyIsIm5iZiI6MTc1Njk1ODU4My4wODQsInN1YiI6IjY4YjkwZjc3MTU4ZTU2NjkyYTliYjI1NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wYBV7FzivAFbGNs2coFwwVz0M0fJhx3J4HatiSC345I'
+    Authorization: `Bearer ${apiKey}`
   }
 };
 
@@ -18,6 +19,7 @@ export default function Detail() {
      options
     );
     const [movie,setMovie] = useState(null)
+    // console.log(detailData)
 
     useEffect(() => {
     if(detailData){
@@ -26,7 +28,8 @@ export default function Detail() {
             vote_average:detailData.vote_average,
             overview:detailData.overview,
             genres:detailData?.genres.map(el=>el.name),
-            backdrop_path:`${imgUrl}${detailData.backdrop_path}`
+            backdrop_path:`${imgUrl}${detailData.poster_path
+}`
         })
     }
   }, [detailData]);

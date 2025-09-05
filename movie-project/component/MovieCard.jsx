@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { imgUrl } from "../url/imgUrl";
+import { imgUrl } from "../api/imgUrl";
 
 export default function MovieCard({ movie }) {
   const navigate = useNavigate()

@@ -1,5 +1,7 @@
 import { createContext } from "react";
 import useFetch from "../hooks/useFetch"
+import { apiKey } from "../api/apiConfig";
+
 
 export const MovieContext = createContext();
 
@@ -9,7 +11,7 @@ export function MovieProvider({children}){
       headers: {
         accept: "application/json",
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlODI2ZjVkOTZmMDY3ZjE2MmFkYWViZGQzZGE3ZGJmNyIsIm5iZiI6MTc1Njk1ODU4My4wODQsInN1YiI6IjY4YjkwZjc3MTU4ZTU2NjkyYTliYjI1NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.wYBV7FzivAFbGNs2coFwwVz0M0fJhx3J4HatiSC345I",
+          `Bearer ${apiKey}`,
       },
     };
         
@@ -18,7 +20,6 @@ export function MovieProvider({children}){
       "https://api.themoviedb.org/3/movie/popular?language=ko&page=1",
       options
     );
-
 
     
   return (
