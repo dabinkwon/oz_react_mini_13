@@ -5,7 +5,7 @@ export default function MovieCard({ movie }) {
   const navigate = useNavigate()
 
   return (
-      <div className="flex flex-col text-center gap-1.5 min-[200px] border-2 border-gray-400 rounded-2xl p-2"
+      <div className="flex flex-col text-center gap-1.5 w-[260px] border-2 border-gray-400 rounded-2xl p-2"
       onClick={()=>navigate(`/details/${movie.id}`)}
       >
         <img
