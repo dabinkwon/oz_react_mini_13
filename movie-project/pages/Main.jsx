@@ -1,19 +1,12 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import MovieCard from "../component/MovieCard";
 import { MovieContext } from "../context/MovieContext";
-
-// swiper 구현하기 위해 import
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import "swiper/css";
-// import "swiper/css/navigation";
-
-// import { Navigation } from "swiper/modules";
+import SlideSwiper from "../component/SlideSwiper";
 
 export default function Main() {
   const { data, loading, error } = useContext(MovieContext);
-  // console.log(data)
 
-  const movieForAll = data?.results.filter((el) => el.adult === false);
+  const movies = data?.results.filter((el) => el.adult === false);
 
   if (error)
     return (
@@ -31,29 +24,10 @@ export default function Main() {
         </div>
       ) : (
         <>
-          {/* swiper 영역 나누기 */}
-            {/* <Swiper
-              navigation={true}
-              modules={[Navigation]}
-              className="h-[200px] "
-            >
-              <SwiperSlide>dfdfd</SwiperSlide> */}
-              {/* <SwiperSlide>dfdfd</SwiperSlide> */}
-              {/* <SwiperSlide>dfdfd</SwiperSlide>
-              <SwiperSlide>dfdfd</SwiperSlide> */}
-              {/* {movieForAll.map((movie) => (
-                <SwiperSlide
-                  className="flex justify-center items-center"
-                  key={movie.id}
-                >
-                  <MovieCard movie={movie} />
-                </SwiperSlide>
-              ))} */}
-            {/* </Swiper> */}
-
+        <SlideSwiper movies={movies}/>
 
           <section className="flex flex-wrap justify-center items-center gap-5">
-            {movieForAll.map((el) => (
+            {movies.map((el) => (
               <MovieCard key={el.id} movie={el} />
             ))}
           </section>
