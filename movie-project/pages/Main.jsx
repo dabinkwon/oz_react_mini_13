@@ -1,7 +1,8 @@
 import { useContext, useEffect } from "react";
 import MovieCard from "../component/MovieCard";
 import { MovieContext } from "../context/MovieContext";
-import SlideSwiper from "../component/SlideSwiper";
+import BestMovies from "../component/BestMovies";
+
 
 export default function Main() {
   const { data, loading, error } = useContext(MovieContext);
@@ -24,7 +25,7 @@ export default function Main() {
         </div>
       ) : (
         <>
-        <SlideSwiper movies={movies}/>
+        <BestMovies movies={movies}/>
 
           <section className="flex flex-wrap justify-center items-center gap-5">
             {movies.map((el) => (

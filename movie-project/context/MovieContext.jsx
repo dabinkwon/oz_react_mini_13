@@ -21,6 +21,8 @@ export function MovieProvider({children}){
       options
     );
 
+
+
     
   return (
     <MovieContext value={{data,loading,error}}>

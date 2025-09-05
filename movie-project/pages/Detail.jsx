@@ -19,7 +19,8 @@ export default function Detail() {
      options
     );
     const [movie,setMovie] = useState(null)
-    // console.log(detailData)
+    console.log(detailData)
+
 
     useEffect(() => {
     if(detailData){
@@ -35,10 +36,7 @@ export default function Detail() {
   }, [detailData]);
 
 
-  // 디테일 페이지에 엄청난 양의 콘솔이 찍힌다....렌더링이 엄청되고 있음
-  // useEffect(()=>{
-  //     console.log(detailData)
-  // },[detailData])
+
 
     return (
       <>
