@@ -5,37 +5,43 @@ import "swiper/css/navigation";
 
 import { Navigation } from "swiper/modules";
 import MovieCard from "./MovieCard";
-import useFetch from "../hooks/useFetch";
-import { apiKey } from "../api/apiConfig";
+import Loading from "./Loading";
+import NoData from "./NoData";
 
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: `Bearer ${apiKey}`
-  }
-};
 
 // BEST MOVIES
-export default function BestMovies() {
-    const [movies] = useFetch('https://api.themoviedb.org/3/movie/top_rated?language=ko&page=1', options)
+export default function BestMovies({movies,loading,error}) {
+
+  if (error)
+    return (
+      <NoData/>
+    );
 
   return (
-    <Swiper
-      navigation={true}
-      modules={[Navigation]}
-      className="h-auto w-[95vw]"
-      slidesPerView={4}
-        spaceBetween={30}
-    >
-      {movies?.results.map((movie) => (
-                <SwiperSlide
-                  className=""
-                  key={movie.id}
-                >
-                  <MovieCard movie={movie} />
-                </SwiperSlide>
-              ))}
-    </Swiper>
+    <>
+    {loading ?
+      (
+       <Loading/>
+      ) : (
+        <Swiper
+          navigation={true}
+          modules={[Navigation]}
+          className="h-auto w-[95vw]"
+          slidesPerView={4}
+            spaceBetween={30}
+        >
+          {movies?.results.map((movie) => (
+                    <SwiperSlide
+                      className=""
+                      key={movie.id}
+                    >
+                      <MovieCard movie={movie} />
+                    </SwiperSlide>
+                  ))}
+        </Swiper>
+
+      )
+    }
+    </>
   );
 }

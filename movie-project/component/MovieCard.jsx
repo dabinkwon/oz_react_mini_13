@@ -4,9 +4,13 @@ import { imgUrl } from "../api/imgUrl";
 export default function MovieCard({ movie }) {
   const navigate = useNavigate()
 
+
+
   return (
       <div className="flex flex-col text-center gap-1.5 w-[260px] border-2 border-gray-400 rounded-2xl p-2"
-      onClick={()=>navigate(`/details/${movie.id}`)}
+      onClick={()=>{
+        navigate(`/details/${movie.id}`)
+      }}
       >
         <img
           className="w-full h-[276px] rounded-2xl"

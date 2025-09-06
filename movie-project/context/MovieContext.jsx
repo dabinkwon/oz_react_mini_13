@@ -21,11 +21,12 @@ export function MovieProvider({children}){
       options
     );
 
-
+    // 평점 높은 영화 데이터
+    const [topRated,topRatedLoadin,topRatedError] = useFetch('https://api.themoviedb.org/3/movie/top_rated?language=ko&page=1', options)
 
     
   return (
-    <MovieContext value={{data,loading,error}}>
+    <MovieContext value={{data,loading,error,topRated,topRatedLoadin,topRatedError}}>
         {children}
     </MovieContext>
   )

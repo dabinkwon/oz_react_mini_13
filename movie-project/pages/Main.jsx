@@ -1,13 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import MovieCard from "../component/MovieCard";
 import { MovieContext } from "../context/MovieContext";
 import BestMovies from "../component/BestMovies";
 
 
 export default function Main() {
-  const { data, loading, error } = useContext(MovieContext);
-
+  const { data, loading, error,topRated,topRatedLoadin,topRatedError } = useContext(MovieContext);
+console.log(data)
   const movies = data?.results.filter((el) => el.adult === false);
+
 
   if (error)
     return (
@@ -25,7 +26,7 @@ export default function Main() {
         </div>
       ) : (
         <>
-        <BestMovies movies={movies}/>
+        <BestMovies movies={topRated} loading={topRatedLoadin} error={topRatedError}/>
 
           <section className="flex flex-wrap justify-center items-center gap-5">
             {movies.map((el) => (
