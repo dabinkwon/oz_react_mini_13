@@ -50,7 +50,6 @@ export default function Detail() {
           }}
         >
           {/* 영화 관련 디테일 정보 */}
-          {/* detail컴포넌트로 파일 분리시켜보기!!! */}
           <div className="absolute inset-0 bg-gray-500/50 z-0 rounded-2xl"></div>
           <div className="flex flex-col items-center justify-center gap-5 my-auto z-10">
             <h1 className="text-center mb-4 text-3xl font-bold">
