@@ -2,6 +2,8 @@ import { useContext } from "react";
 import MovieCard from "../component/MovieCard";
 import { MovieContext } from "../context/MovieContext";
 import BestMovies from "../component/BestMovies";
+import Loading from "../component/Loading";
+import NoData from "../component/NoData";
 
 
 export default function Main() {
@@ -12,18 +14,13 @@ console.log(data)
 
   if (error)
     return (
-      <div className="text-center font-bold text-3xl pt-10">
-        Error : 페이지를 찾 을 수 없습니다.
-      </div>
+      <NoData/>
     );
 
   return (
     <>
       {loading ? (
-        // 로딩 중
-        <div className="flex justify-center items-center w-full h-screen">
-          <div className="w-14 h-14 border-4 border-white rounded-full border-t-transparent"></div>
-        </div>
+        <Loading/>
       ) : (
         <>
         <BestMovies movies={topRated} loading={topRatedLoadin} error={topRatedError}/>

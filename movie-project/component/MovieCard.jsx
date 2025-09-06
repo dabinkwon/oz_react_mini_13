@@ -13,7 +13,7 @@ export default function MovieCard({ movie }) {
       }}
       >
         <img
-          className="w-full h-[276px] rounded-2xl"
+          className="w-full h-[286px] rounded-2xl"
           src={`${imgUrl}${movie.poster_path}`}
           alt={movie.title}
         />
