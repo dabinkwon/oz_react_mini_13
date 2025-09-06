@@ -22,15 +22,18 @@ console.log(data)
       {loading ? (
         <Loading/>
       ) : (
-        <>
+        <div className="flex flex-col gap-10 justify-center items-center">
         <BestMovies movies={topRated} loading={topRatedLoadin} error={topRatedError}/>
-
-          <section className="flex flex-wrap justify-center items-center gap-5">
+          <div>
+          <h2 className="text-xl p-2 text-center">인기 영화</h2>
+          <section className="flex flex-wrap justify-center items-center gap-5 ">
             {movies.map((el) => (
               <MovieCard key={el.id} movie={el} />
             ))}
           </section>
-        </>
+
+          </div>
+        </div>
       )}
     </>
   );

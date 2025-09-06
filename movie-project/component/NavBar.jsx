@@ -30,11 +30,11 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="bg-black md:flex-row flex flex-col w-full sm:justify-around items-center gap-1.5 py-1">
+    <nav className="bg-black  flex flex-col w-full sm:flex-row sm:justify-around items-center gap-1.5 py-1">
       <Link 
       className="py-2"
       to="/">
-        <h1 className= "p-2 font-bold text-2xl flex items-center justify-center hover:bg-white hover:text-black transition-colors duration-200 rounded-xl text-center">MOVIES</h1>
+        <h1 className= "p-2 font-bold text-2xl flex items-center justify-center hover:bg-amber-50 hover:text-black transition-colors duration-200 rounded-xl text-center">MOVIES</h1>
       </Link>
       <div className="">
         <form onSubmit={handleSubmit}>
@@ -49,10 +49,10 @@ export default function NavBar() {
         </div>
         <div className="py-1 text-center flex justify-center items-center gap-2">
         <Link
-        className="p-2 hover:bg-white hover:text-black transition-colors duration-200 rounded-xl"
+        className="p-2 hover:bg-amber-50 hover:text-black transition-colors duration-200 rounded-xl"
         to="/">HOME</Link>
         <Link
-        className="p-2 hover:bg-white hover:text-black transition-colors duration-200 rounded-xl"
+        className="p-2 hover:bg-amber-50 hover:text-black transition-colors duration-200 rounded-xl w-[70px]"
         >Login</Link>
         </div>
     </nav>
