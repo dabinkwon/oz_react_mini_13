@@ -18,7 +18,7 @@ export default function BestMovies({ movies, loading, error }) {
         <Loading />
       ) : (
         <div>
-          <h1 className="text-xl p-2">꼭 봐야 할 영화</h1>
+          <h1 className="text-xl text-center p-2">꼭 봐야 할 영화</h1>
           <Swiper
             navigation={true}
             modules={[Navigation]}

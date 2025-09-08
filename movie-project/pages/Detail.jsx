@@ -2,23 +2,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { imgUrl } from "../api/imgUrl";
 import useFetch from "../hooks/useFetch";
-import { apiKey } from "../api/apiConfig";
 import Loading from "../component/Loading";
 import NoData from "../component/NoData";
-
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${apiKey}`,
-  },
-};
 
 export default function Detail() {
   const { movieId } = useParams();
   const [detailData, loading] = useFetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?language=ko`,
-    options
+    `https://api.themoviedb.org/3/movie/${movieId}?language=ko`
   );
   const [movie, setMovie] = useState(null);
 
@@ -28,7 +18,7 @@ export default function Detail() {
         title: detailData.title,
         vote_average: detailData.vote_average,
         overview: detailData.overview,
-        genres: detailData?.genres.map((el) => el.name).join(', '),
+        genres: detailData?.genres.map((el) => el.name).join(", "),
         backdrop_path: `${imgUrl}${detailData.backdrop_path}`,
       });
     }
@@ -37,9 +27,9 @@ export default function Detail() {
   return (
     <>
       {loading ? (
-       <Loading/>
+        <Loading />
       ) : !movie ? (
-        <NoData/>
+        <NoData />
       ) : (
         // 배경으로 영화 이미지
         <div

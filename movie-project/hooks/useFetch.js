@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
+import { apiKey } from "../api/apiConfig";
 
-export default function useFetch(url, options) {
+export default function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+  };
 
   useEffect(() => {
     const fetchData = async () => {
