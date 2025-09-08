@@ -5,6 +5,7 @@ import Layout from "../component/Layout";
 import { MovieProvider } from "../context/MovieContext";
 import Search from "../pages/Search";
 
+
 function App() {
   
 

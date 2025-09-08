@@ -21,7 +21,6 @@ export default function Detail() {
     options
   );
   const [movie, setMovie] = useState(null);
-  console.log(detailData);
 
   useEffect(() => {
     if (detailData) {
@@ -44,7 +43,7 @@ export default function Detail() {
       ) : (
         // 배경으로 영화 이미지
         <div
-          className="relative rounded-2xl w-[80vw] flex flex-col justify-center items-center p-5 bg-cover bg-center mx-auto min-h-screen"
+          className="relative rounded-2xl w-[70vw] flex flex-col justify-center items-center p-5  bg-cover mx-auto"
           style={{
             backgroundImage: `url(${movie.backdrop_path})`,
           }}
@@ -56,13 +55,13 @@ export default function Detail() {
               {movie.title}
             </h1>
             <img
-              className="rounded-lg"
+              className="rounded-lg w-[70vw]  md:w-[60vw]"
               src={movie.backdrop_path}
               alt={movie.title}
             />
             <p>{movie.vote_average}</p>
-            <p>{movie.genres}</p>
-            <p className="text-white max-w-[70vw] text-center">
+            <p className="bg-black/50 rounded-xl p-2">{movie.genres}</p>
+            <p className="text-white max-w-[70vw] text-center bg-black/50 rounded-xl px-3 py-2">
               {movie.overview}
             </p>
           </div>
