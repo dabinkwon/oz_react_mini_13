@@ -1,17 +1,56 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useDebounce from "../hooks/useDebounce";
 
 export default function NavBar() {
+  const navigate = useNavigate();
+  const [searchValue,setSearchValue] = useState('')
+
+  const deboundedValue = useDebounce(searchValue,500);
+
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+    if(!searchValue.trim())return;
+      navigate(`/search/movie?query=${searchValue}`);
+      setSearchValue('')
+  }
+
+  useEffect(()=>{
+    if(!deboundedValue.trim() && searchValue === deboundedValue)return;
+   navigate(`/search/movie?query=${deboundedValue}`)
+   console.log(deboundedValue)
+  },[deboundedValue])
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+
   return (
-    <nav className=" w-full h-18 flex justify-between p-3 bg-black items-center  gap-5 pr-1.5">
-      <Link to="/">
-          <h1 className="p-3 font-bold">MOVIES</h1>
-        </Link>
-        <div className="flex justify-between items-center gap-7 pr-5">
-        <input 
-        className="border-1 rounded-2xl w-[250px] pl-2.5 py-1 mr-7"
-        type="text" placeholder="어떤 영화를 보실 건가요?" />
-        <Link to="/">HOME</Link>
-        <div>Login</div>
+    <nav className="bg-black  flex flex-col w-full sm:flex-row sm:justify-around items-center gap-1.5 py-1">
+      <Link 
+      className="py-2"
+      to="/">
+        <h1 className= "p-2 font-bold text-2xl flex items-center justify-center hover:bg-amber-50 hover:text-black transition-colors duration-200 rounded-xl text-center">MOVIES</h1>
+      </Link>
+      <div className="">
+        <form onSubmit={handleSubmit}>
+          <input
+            className="border rounded-2xl w-[300px] lg:w-[350px] px-2 py-1 sm:justify-center items-center text-center text-gray-300"
+            type="text"
+            placeholder="어떤 영화를 보실 건가요?"
+            value={searchValue}
+            onChange={handleChange}
+          />
+        </form>
+        </div>
+        <div className="py-1 text-center flex justify-center items-center gap-2">
+        <Link
+        className="p-2 hover:bg-amber-50 hover:text-black transition-colors duration-200 rounded-xl"
+        to="/">HOME</Link>
+        <Link
+        className="p-2 hover:bg-amber-50 hover:text-black transition-colors duration-200 rounded-xl w-[70px]"
+        >Login</Link>
         </div>
     </nav>
   );
