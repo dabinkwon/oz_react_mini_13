@@ -1,10 +1,8 @@
 import { useState } from "react";
 import InputField from "../component/InputField";
 import { btnStyle, formStyle, warningStyle } from "../style/inputStyle";
-import { useSupabase } from "../supabase";
 
 export default function Signup() {
-  const supabase = useSupabase()
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
