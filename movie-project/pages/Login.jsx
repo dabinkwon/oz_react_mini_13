@@ -1,6 +1,11 @@
 import { useState } from "react";
 import InputField from "../component/InputField";
-import { btnStyle, warningStyle } from "../style/inputStyle";
+import {
+  btnStyle,
+  formWrapperStyle,
+  formStyle,
+  warningStyle,
+} from "../style/inputStyle";
 import { Link } from "react-router-dom";
 
 export default function Login() {
@@ -22,7 +27,7 @@ export default function Login() {
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    if(!value.trim()) return;
+    if (!value.trim()) return;
     if (name === "email" && !value.includes("@")) {
       setErrorEmail(true);
     } else if (name === "password" && value.length < 8) {
@@ -30,47 +35,51 @@ export default function Login() {
     }
   };
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if(errorEmail === false && errorPassword === false) console.log('login success')
-    setUserEmail('')
-    setUserPassword('')
-  }
+    if (errorEmail === false && errorPassword === false)
+      console.log("login success");
+    setUserEmail("");
+    setUserPassword("");
+  };
 
   return (
-    <div className="flex flex-col items-center bg-white text-black mt-3 py-10 max-w-2xl w-[70vw] mx-auto h-[70vh] min-h-[400px] rounded-[5px]">
+    <div className={formWrapperStyle}>
       <h1 className="text-4xl mx-auto mb-12 font-semibold">MOVIES</h1>
-      <form 
-       onSubmit={handleSubmit}
-      className="flex flex-col items-center justify-between gap-6 ">
-        <section>
-            <InputField
-              name={"email"}
-              value={userEmail}
-              onChange={handleChange}
-              placeholder={"이메일을 입력하세요."}
-              onBlur={handleBlur}
-            />
-          {errorEmail && <p className={warningStyle}>올바른 이메일 양식으로 입력해주세요.</p>}
-        </section>
-        <section>
-            <InputField
-              type="password"
-              name={"password"}
-              value={userPassword}
-              onChange={handleChange}
-              placeholder={"비밀번호를 입력하세요."}
-              onBlur={handleBlur}
-            />
-          {errorPassword && <p className={warningStyle}>비밀번호는 8자 이상이어야 합니다.</p>}
-        </section>
-        <button className={btnStyle}
-        type="submit"
-        >로그인</button>
+      <form onSubmit={handleSubmit} className={formStyle}>
+        <InputField
+          name={"email"}
+          value={userEmail}
+          onChange={handleChange}
+          placeholder={"이메일을 입력하세요."}
+          onBlur={handleBlur}
+        />
+        {errorEmail && (
+          <p className={warningStyle}>올바른 이메일 양식으로 입력해주세요.</p>
+        )}
+
+        <InputField
+          type="password"
+          name={"password"}
+          value={userPassword}
+          onChange={handleChange}
+          placeholder={"비밀번호를 입력하세요."}
+          onBlur={handleBlur}
+        />
+        {errorPassword && (
+          <p className={warningStyle}>비밀번호는 8자 이상이어야 합니다.</p>
+        )}
+
+        <button className={btnStyle} type="submit">
+          로그인
+        </button>
       </form>
-      <Link 
-      className="mt-2 text-[14px] hover:border-b-1 hover: border-gray-400 w-[60px] text-center"
-      to="/signup">회원가입</Link>
+      <Link
+        className="mt-2 text-[14px] hover:border-b-1 hover: border-gray-400 w-[60px] text-center"
+        to="/signup"
+      >
+        회원가입
+      </Link>
     </div>
   );
 }
