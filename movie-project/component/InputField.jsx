@@ -1,13 +1,14 @@
-import { inputStyle } from "../style/inputStyle";
+import { inputStyle,warningStyle } from "../style/inputStyle";
 
-export default function InputField({type='text',name,value,onChange,placeholder,onBlur,minLength,maxLength}) {
+export default function InputField({type='text',name,value,onChange,placeholder,error,errorMsg}) {
 
   return (
     <>
     <label>
     <input 
     className={inputStyle}
-    type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} onBlur={onBlur} autoComplete="off" minLength={minLength} maxLength={maxLength} />
+    type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} autoComplete="off"  />
+    {error?<p className={warningStyle}>{errorMsg}</p>:''}
     </label>
     </>
   );

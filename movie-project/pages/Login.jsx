@@ -1,75 +1,83 @@
 import { useState } from "react";
 import InputField from "../component/InputField";
-import {
-  btnStyle,
-  formWrapperStyle,
-  formStyle,
-  warningStyle,
-} from "../style/inputStyle";
-import { Link } from "react-router-dom";
+import { btnStyle, formWrapperStyle, formStyle } from "../style/inputStyle";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../supabase/client";
+import { emailValidation, passwordValidation } from "../validation/validation";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState(false);
-  const [errorPassword, setErrorPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false,
+  });
+  const navigate = useNavigate()
+  const{login} = useAuth()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "email" && value.trim()) {
-      setUserEmail(value);
-      setErrorEmail(false);
-    } else if (name === "password" && value.trim()) {
-      setUserPassword(value);
-      setErrorPassword(false);
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: false }));
   };
 
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-    if (!value.trim()) return;
-    if (name === "email" && !value.includes("@")) {
-      setErrorEmail(true);
-    } else if (name === "password" && value.length < 8) {
-      setErrorPassword(true);
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (errorEmail === false && errorPassword === false)
-      console.log("login success");
-    setUserEmail("");
-    setUserPassword("");
+
+    const newErrors = {
+      email: !emailValidation(formData.email),
+      password: !passwordValidation(formData.password),
+    };
+
+    setErrors(newErrors);
+
+    if (Object.values(newErrors).some((err) => err)) {
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+      if (error) {
+        throw error;
+      } else {
+        login(data.session)
+        alert("로그인 성공!");
+        setFormData({ email: "", password: "" });
+        navigate('/')
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className={formWrapperStyle}>
       <h1 className="text-4xl mx-auto mb-12 font-semibold">MOVIES</h1>
-      <form onSubmit={handleSubmit} className={formStyle}>
+      <form className={formStyle} onSubmit={handleSubmit}>
         <InputField
           name={"email"}
-          value={userEmail}
+          value={formData.email}
+          placeholder={"email"}
           onChange={handleChange}
-          placeholder={"이메일을 입력하세요."}
-          onBlur={handleBlur}
+          error={errors.email}
+          errorMsg={"올바른 이메일 양식을 입력하세요"}
         />
-        {errorEmail && (
-          <p className={warningStyle}>올바른 이메일 양식으로 입력해주세요.</p>
-        )}
 
         <InputField
           type="password"
           name={"password"}
-          value={userPassword}
+          value={formData.password}
+          placeholder={"password"}
           onChange={handleChange}
-          placeholder={"비밀번호를 입력하세요."}
-          onBlur={handleBlur}
+          error={errors.password}
+          errorMsg={"비밀번호는 8자 이상이어야 합니다."}
         />
-        {errorPassword && (
-          <p className={warningStyle}>비밀번호는 8자 이상이어야 합니다.</p>
-        )}
-
         <button className={btnStyle} type="submit">
           로그인
         </button>

@@ -16,7 +16,7 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    if (!deboundedValue.trim() && searchValue === deboundedValue) return;
+    if (!deboundedValue.trim() && searchValue === deboundedValue) return (setSearchValue(''));
     navigate(`/search/movie?query=${deboundedValue}`);
     console.log(deboundedValue);
   }, [deboundedValue]);
