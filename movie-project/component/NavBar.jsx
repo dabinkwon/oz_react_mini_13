@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useDebounce from "../hooks/useDebounce";
+import { useAuth } from "../context/AuthContext";
+import User from "./User";
 
 export default function NavBar() {
+  const { session } = useAuth();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
 
@@ -16,7 +19,8 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    if (!deboundedValue.trim() && searchValue === deboundedValue) return (setSearchValue(''));
+    if (!deboundedValue.trim() && searchValue === deboundedValue)
+      return setSearchValue("");
     navigate(`/search/movie?query=${deboundedValue}`);
     console.log(deboundedValue);
   }, [deboundedValue]);
@@ -47,19 +51,23 @@ export default function NavBar() {
         <NavLink
           to="/"
           className={({ isActive }) =>
-              isActive ? "text-blue-400 font-semibold p-2" : "text-white p-2"
-            } 
+            isActive ? "text-blue-400 font-semibold p-2" : "text-white p-2"
+          }
         >
           HOME
         </NavLink>
-        <NavLink
-          to="/login"
-          className={({ isActive }) =>
+        {session?.user ? (
+          <User />
+        ) : (
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
               isActive ? "text-blue-400 font-semibold p-2" : "text-white p-2"
-            } 
-        >
-          Login
-        </NavLink>
+            }
+          >
+            Login
+          </NavLink>
+        )}
       </div>
     </nav>
   );

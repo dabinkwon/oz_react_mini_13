@@ -1,26 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import MovieCard from "../component/MovieCard";
 import { MovieContext } from "../context/MovieContext";
 import BestMovies from "../component/BestMovies";
 import Loading from "../component/Loading";
 import NoData from "../component/NoData";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 export default function Main() {
-  const {session} = useAuth();
-  const navigate = useNavigate()
   const { data, loading, error, topRated, topRatedLoadin, topRatedError } =
     useContext(MovieContext);
   const movies = data?.results.filter((el) => el.adult === false);
 
-  useEffect(() => {
-    if (!session) {
-      navigate("/login");
-    }
-  }, [session]);
-
-  if (!session) return null;
   if (error) return <NoData />;
 
   return (
