@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InputField from "../component/InputField";
-import { btnStyle, formWrapperStyle, formStyle } from "../style/inputStyle";
+import { btnStyle, formWrapperStyle, formStyle } from "../style/style";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabase/client";
 import { emailValidation, passwordValidation } from "../validation/validation";
@@ -15,8 +15,8 @@ export default function Login() {
     email: false,
     password: false,
   });
-  const navigate = useNavigate()
-  const{login} = useAuth()
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,10 +46,10 @@ export default function Login() {
       if (error) {
         throw error;
       } else {
-        login(data.session)
+        login(data.session);
         alert("로그인 성공!");
         setFormData({ email: "", password: "" });
-        navigate('/')
+        navigate("/");
       }
     } catch (error) {
       console.error(error);

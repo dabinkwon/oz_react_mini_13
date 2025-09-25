@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InputField from "../component/InputField";
-import { btnStyle, formStyle } from "../style/inputStyle";
+import { btnStyle, formStyle } from "../style/style";
 import { supabase } from "../supabase/client";
 import {
   emailValidation,
@@ -114,7 +114,10 @@ export default function Signup() {
       </form>
       <p className="mt-2 font-light text-gray-600 text-[13px]">
         이미 회원가입 하셨나요?
-        <Link className="pl-1 text-gray-800 hover:text-blue-700 hover:font-semibold" to="/login">
+        <Link
+          className="pl-1 text-gray-800 hover:text-blue-700 hover:font-semibold"
+          to="/login"
+        >
           로그인
         </Link>
       </p>
