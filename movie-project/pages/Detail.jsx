@@ -49,8 +49,10 @@ export default function Detail() {
               src={movie.backdrop_path}
               alt={movie.title}
             />
-            <p>{movie.vote_average}</p>
-            <p className="bg-black/50 rounded-xl p-2">{movie.genres}</p>
+            <p className="text-white">{movie.vote_average}</p>
+            <p className="bg-black/50 rounded-xl p-2 text-white">
+              {movie.genres}
+            </p>
             <p className="text-white max-w-[70vw] text-center bg-black/50 rounded-xl px-3 py-2">
               {movie.overview}
             </p>

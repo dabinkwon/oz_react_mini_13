@@ -6,8 +6,7 @@ import Loading from "../component/Loading";
 import NoData from "../component/NoData";
 
 export default function Main() {
-  const { data, loading, error, topRated, topRatedLoadin, topRatedError } =
-    useContext(MovieContext);
+  const { data, loading, error } = useContext(MovieContext);
   const movies = data?.results.filter((el) => el.adult === false);
 
   if (error) return <NoData />;
@@ -18,11 +17,7 @@ export default function Main() {
         <Loading />
       ) : (
         <div className="flex flex-col gap-10 justify-center items-center">
-          <BestMovies
-            movies={topRated}
-            loading={topRatedLoadin}
-            error={topRatedError}
-          />
+          <BestMovies />
           <div>
             <h2 className="text-xl text-center p-2">인기 영화</h2>
             <section className="flex flex-wrap justify-center items-center gap-3 ">

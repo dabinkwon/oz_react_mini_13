@@ -7,9 +7,17 @@ import { Navigation } from "swiper/modules";
 import MovieCard from "./MovieCard";
 import Loading from "./Loading";
 import NoData from "./NoData";
+import { MovieContext } from "../context/MovieContext";
+import { useContext } from "react";
 
 // BEST MOVIES
-export default function BestMovies({ movies, loading, error }) {
+export default function BestMovies() {
+  const {
+    topRated: movies,
+    topRatedLoadin: loading,
+    topRatedError: error,
+  } = useContext(MovieContext);
+
   if (error) return <NoData />;
 
   return (
