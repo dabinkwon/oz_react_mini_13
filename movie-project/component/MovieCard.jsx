@@ -7,7 +7,6 @@ import { useLikeStore } from "../store/LikeMovie";
 export default function MovieCard({ movie }) {
   const { likeMovie, toggleLike } = useLikeStore();
   const isLike = likeMovie.includes(movie.id);
-  console.log(likeMovie);
 
   const handleLike = (e) => {
     e.stopPropagation();
@@ -25,8 +24,15 @@ export default function MovieCard({ movie }) {
           {movie.vote_average}
         </p>
       </Link>
-      <button className="" onClick={handleLike}>
-        {isLike ? <FaHeart className="text-red-600" /> : <CiHeart />}
+      <button
+        className="absolute bottom-3 right-2 flex justify-center items-center bg-white w-8 h-8  rounded-[50%]"
+        onClick={handleLike}
+      >
+        {isLike ? (
+          <FaHeart className="text-red-600 size-5" />
+        ) : (
+          <CiHeart className="size-4 text-black" />
+        )}
       </button>
     </div>
   );
