@@ -9,6 +9,7 @@ export default function MyPage() {
   const userEmail = session?.user.user_metadata.email;
   const userName = session?.user.user_metadata.name;
   const { likeMovie } = useLikeStore();
+
   return (
     <div className="flex h-full">
       <section className="flex flex-col w-1/5 min-w-[200px] sticky top-0 h-screen mr-5 items-center gap-1 pt-5 bg-gray-200 rounded-2xl text-black">
