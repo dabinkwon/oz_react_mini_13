@@ -4,7 +4,11 @@ import { FaHeart } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { useLikeStore } from "../store/LikeMovie";
 
-export default function MovieCard({ movie }) {
+export default function MovieCard({
+  movie,
+  className = "",
+  imgClassName = "",
+}) {
   const { likeMovie, toggleLike } = useLikeStore();
   const isLike = likeMovie.includes(movie.id);
 
@@ -13,10 +17,10 @@ export default function MovieCard({ movie }) {
     toggleLike(movie.id);
   };
   return (
-    <div className="relative flex flex-col text-center gap-1.5 w-[220px]  border-2 border-gray-400 rounded-2xl p-2 ">
+    <div className={`relative flex flex-col gap-1.5${className}`}>
       <Link to={`/details/${movie.id}`}>
         <img
-          className="rounded-2xl h-[300px] object-cover"
+          className={`object-fit ${imgClassName} w-full`}
           src={`${imgUrl}${movie.poster_path}`}
           alt={movie.title}
         />

@@ -9,6 +9,7 @@ const getFavoriteMovies = (movies = [], likeMovie = []) => {
   return movies.filter((movie) => likeMovie.includes(movie.id));
 };
 
+// https://developer.themoviedb.org/reference/account-add-favorite 참고
 const FavoriteMovie = () => {
   const { likeMovie } = useLikeStore();
   const { data, topRated } = useContext(MovieContext);
