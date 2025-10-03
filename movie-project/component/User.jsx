@@ -19,7 +19,7 @@ export default function User() {
         {isOpen && (
           <div className="absolute z-10 sm:top-6 sm:-left-20 -top-3 left-7 w-[120px] p-3 rounded-xl text-gray-700 font-medium bg-[#fafbfd] shadow-lg">
             <button
-              className="w-[100px] bg-[rgb(210,225,252)] rounded-xl py-1 hover:cursor-pointer"
+              className="w-[100px] bg-[rgb(210,225,252)] rounded-xl py-1 hover:cursor-pointer ]"
               onClick={logout}
             >
               로그아웃

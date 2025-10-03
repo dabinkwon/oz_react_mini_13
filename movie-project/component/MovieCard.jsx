@@ -4,20 +4,23 @@ import { FaHeart } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { useLikeStore } from "../store/LikeMovie";
 
-export default function MovieCard({ movie }) {
+export default function MovieCard({
+  movie,
+  className = "",
+  imgClassName = "",
+}) {
   const { likeMovie, toggleLike } = useLikeStore();
   const isLike = likeMovie.includes(movie.id);
-  console.log(likeMovie);
 
   const handleLike = (e) => {
     e.stopPropagation();
     toggleLike(movie.id);
   };
   return (
-    <div className="relative flex flex-col text-center gap-1.5 w-[220px]  border-2 border-gray-400 rounded-2xl p-2 ">
+    <div className={`relative flex flex-col gap-1.5${className}`}>
       <Link to={`/details/${movie.id}`}>
         <img
-          className="rounded-2xl h-[300px] object-cover"
+          className={`object-fit ${imgClassName} w-full`}
           src={`${imgUrl}${movie.poster_path}`}
           alt={movie.title}
         />
@@ -25,8 +28,15 @@ export default function MovieCard({ movie }) {
           {movie.vote_average}
         </p>
       </Link>
-      <button className="" onClick={handleLike}>
-        {isLike ? <FaHeart className="text-red-600" /> : <CiHeart />}
+      <button
+        className="absolute bottom-3 right-2 flex justify-center items-center bg-white w-8 h-8  rounded-[50%]"
+        onClick={handleLike}
+      >
+        {isLike ? (
+          <FaHeart className="text-red-600 size-5" />
+        ) : (
+          <CiHeart className="size-4 text-black" />
+        )}
       </button>
     </div>
   );

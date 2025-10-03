@@ -37,7 +37,7 @@ export default function NavBar({ handleDarkMode }) {
     <nav className="flex flex-col w-full sm:flex-row sm:justify-around items-center gap-1.5 py-1">
       {/* 로고 */}
       <Link className="py-2" to="/">
-        <h1 className="p-2 font-bold text-2xl flex items-center justify-center hover:bg-amber-50 hover:text-black transition-colors duration-200 rounded-xl text-center">
+        <h1 className="p-2 font-bold text-2xl flex items-center justify-center text-center hover:text-blue-500">
           MOVIES
         </h1>
       </Link>
