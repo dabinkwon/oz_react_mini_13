@@ -1,34 +1,27 @@
+import ControlOverview from "./ControlOverview";
+
 const DetailMain = ({ movie }) => {
   return (
-    <div
-      className="relative w-full h-full flex flex-col justify-center items-center p-5  bg-cover mx-auto"
-      style={{
-        backgroundImage: `url(${movie.backdrop_path})`,
-      }}
-    >
+    <div className="flex flex-col justify-center items-center gap-2">
       {/* 영화 관련 디테일 정보 */}
-      <div className="absolute inset-0 bg-gray-400/70 z-0"></div>
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-5 z-10">
-        <img
-          className="w-[50%] lg:w-[500px] min-w-[450px] rounded-xl"
-          src={movie.backdrop_path}
-          alt={movie.title}
-        />
-        <div className="flex flex-col items-start justify-start gap-2 h-full">
-          <h1 className="text-center text-3xl font-bold">{movie.title}</h1>
-          <div className="flex gap-1">
-            <p className="bg-black/50 w-18 rounded-xl p-1 text-center text-white">
-              {movie.vote_average}
-            </p>
-            <p className="bg-black/50 w-18 rounded-xl p-1 text-center text-white">
-              {movie.genres}
-            </p>
-          </div>
-          {/* <p className="text-white max-w-[70vw] text-center bg-black/60 px-3 min-w-[480px] py-2">
-          {movie.overview}
-        </p> */}
-        </div>
+      <h1 className="text-center text-3xl font-bold font-stretch-150% text-white">
+        {movie.title}
+      </h1>
+      <img
+        className="w-[100%] max-w-[600px]  rounded-xl"
+        src={movie.backdrop_path}
+        alt={movie.title}
+      />
+      <div className="flex gap-2 text-[12px]">
+        <p className="bg-black/50  p-2 text-center text-white">
+          {movie.vote_average}
+        </p>
+        <p className="bg-black/50 p-2 text-center text-white">{movie.genres}</p>
       </div>
+      <ControlOverview
+        text={movie.overview}
+        className="text-white max-w-[700px] text-center bg-black/50 px-3 py-2"
+      />
     </div>
   );
 };

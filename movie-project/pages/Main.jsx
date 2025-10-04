@@ -18,16 +18,16 @@ export default function Main() {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex flex-col gap-10 justify-center items-center">
+        <div className="flex flex-col gap-6 justify-center items-center">
           <BestMovies />
-          <h2 className="text-xl text-center p-2">인기 영화</h2>
-          <section className="flex flex-wrap justify-center items-center gap-7">
+          <h2 className="text-xl text-center">인기 영화</h2>
+          <section className="flex flex-wrap justify-center items-center gap-8">
             {movies.map((el) => (
               <MovieCard
                 key={el.id}
                 movie={el}
                 className={"w-[250px] h-[360px]"}
-                imgClassName={"h-[340px]"}
+                imgClassName={"h-[340px] rounded-md"}
                 likeButton={<LikeButton movie={el} />}
                 detailButton={<DetailButton movie={el} />}
               />

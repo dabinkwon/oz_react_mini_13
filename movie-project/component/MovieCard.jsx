@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { originImgUrl } from "../api/imgUrl";
-import LikeButton from "./LikeButton";
-import DetailButton from "./DetailButton";
 
 export default function MovieCard({
   movie,
@@ -14,7 +12,7 @@ export default function MovieCard({
     <div className={`relative flex flex-col gap-1 ${className}`}>
       <Link to={`/details/${movie.id}`}>
         <img
-          className={`object-fit ${imgClassName} w-full`}
+          className={`object-fill ${imgClassName} w-full`}
           src={`${originImgUrl}${movie.poster_path}`}
           alt={movie.title}
         />
