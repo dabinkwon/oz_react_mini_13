@@ -4,6 +4,8 @@ import { MovieContext } from "../context/MovieContext";
 import BestMovies from "../component/BestMovies";
 import Loading from "../component/Loading";
 import NoData from "../component/NoData";
+import LikeButton from "../component/LikeButton";
+import DetailButton from "../component/DetailButton";
 
 export default function Main() {
   const { data, loading, error } = useContext(MovieContext);
@@ -19,13 +21,15 @@ export default function Main() {
         <div className="flex flex-col gap-10 justify-center items-center">
           <BestMovies />
           <h2 className="text-xl text-center p-2">인기 영화</h2>
-          <section className="flex flex-wrap justify-center items-center gap-3 ">
+          <section className="flex flex-wrap justify-center items-center gap-7">
             {movies.map((el) => (
               <MovieCard
                 key={el.id}
                 movie={el}
                 className={"w-[250px] h-[360px]"}
-                imgClassName={"rounded-2xl h-[340px]"}
+                imgClassName={"h-[340px]"}
+                likeButton={<LikeButton movie={el} />}
+                detailButton={<DetailButton movie={el} />}
               />
             ))}
           </section>
