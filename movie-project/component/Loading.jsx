@@ -1,7 +1,22 @@
-export default function Loading(){
-    return (
-         <div className="flex justify-center items-center w-full h-screen">
-          <div className="w-14 h-14 border-4 border-white rounded-full border-t-transparent animate-spin"></div>
-        </div>
-    )
+export default function Loading({
+  width = "100%",
+  height = "200px",
+  count = 1,
+  className = "",
+}) {
+  const skeletons = Array.from({ length: count });
+
+  return (
+    <div
+      className={`flex gap-4 flex-wrap justify-center items-center ${className}`}
+    >
+      {skeletons.map((_, i) => (
+        <div
+          key={i}
+          style={{ width, height }}
+          className="bg-gray-200 animate-pulse rounded-md"
+        />
+      ))}
+    </div>
+  );
 }

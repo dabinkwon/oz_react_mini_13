@@ -10,7 +10,7 @@ import { SwiperSlide } from "swiper/react";
 export default function BestMovies() {
   const {
     topRated: movies,
-    topRatedLoadin: loading,
+    topRatedLoading: loading,
     topRatedError: error,
   } = useContext(MovieContext);
 
@@ -19,7 +19,12 @@ export default function BestMovies() {
   return (
     <>
       {loading ? (
-        <Loading />
+        <Loading
+          width="1000px"
+          height="490px"
+          count={1}
+          className="w-screen overflow-hidden"
+        />
       ) : (
         <>
           <CustomSwiper className="w-screen">

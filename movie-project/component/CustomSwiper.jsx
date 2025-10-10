@@ -12,7 +12,7 @@ const CustomSwiper = ({
   breakpoints = {},
   autoplay = true,
   pagination = true,
-  className = "w-screen",
+  className = "",
 }) => {
   return (
     <Swiper

@@ -15,7 +15,7 @@ const DetailPeople = ({ actors }) => {
           1024: { slidesPerView: 7 },
         }}
         autoplay={false}
-        className="w-[90vw]"
+        className={"w-[90vw]"}
       >
         {actors.map((actor, index) => (
           <SwiperSlide key={index} className="text-center ">
