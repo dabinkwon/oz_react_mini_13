@@ -3,16 +3,15 @@ import { useParams } from "react-router-dom";
 import { originImgUrl } from "../api/imgUrl";
 import useFetch from "../hooks/useFetch";
 import Loading from "../component/Loading";
-import NoData from "../component/NoData";
 import DetailMain from "../component/DetailMain";
 import DetailPeople from "../component/DetailPeople";
 
 export default function Detail() {
   const { movieId } = useParams();
-  const [detailData, loading] = useFetch(
+  const [detailData, detailLoading] = useFetch(
     `https://api.themoviedb.org/3/movie/${movieId}?language=ko`
   );
-  const [peopleData] = useFetch(
+  const [peopleData, peopleLoading] = useFetch(
     `https://api.themoviedb.org/3/movie/${movieId}/credits?language=ko`
   );
   const [movie, setMovie] = useState(null);
@@ -37,12 +36,18 @@ export default function Detail() {
     }
   }, [detailData, peopleData]);
 
+  const isLoading = peopleLoading || detailLoading || !movie;
+
   return (
     <>
-      {loading ? (
-        <Loading />
-      ) : !movie ? (
-        <NoData />
+      {isLoading ? (
+        <div className="w-full mt-5">
+          <Loading width="70px" height="30px" className="mb-3" />
+          <Loading width="100%" height="400px" className="mb-4" />
+          <Loading width="60px" height="25px" className="mb-2" />
+          <Loading width="80%" height="100px" className="mb-4" />
+          <Loading width="80px" height="120px" count={5} />
+        </div>
       ) : (
         <div
           className="relative w-screen h-full flex flex-col justify-center items-center p-5 bg-cover bg-center mx-auto"

@@ -23,7 +23,6 @@ export default function NavBar({ handleDarkMode }) {
     if (!deboundedValue.trim() && searchValue === deboundedValue)
       return setSearchValue("");
     navigate(`/search/movie?query=${deboundedValue}`);
-    console.log(deboundedValue);
   }, [deboundedValue]);
 
   const handleChange = (e) => {
