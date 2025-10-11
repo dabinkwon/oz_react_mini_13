@@ -8,9 +8,10 @@ import {
   passwordValidation,
   confirmPasswordValidation,
 } from "../validation/validation";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -31,39 +32,53 @@ export default function Signup() {
     setErrors((prev) => ({ ...prev, [name]: false }));
   };
 
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+
+    let isError = false;
+
+    switch (name) {
+      case "email":
+        isError = !emailValidation(value);
+        break;
+      case "name":
+        isError = !nameValidation(value);
+        break;
+      case "password":
+        isError = !passwordValidation(value);
+        break;
+      case "confirmPassword":
+        isError = !confirmPasswordValidation(value, formData.password);
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prev) => ({ ...prev, [name]: isError }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newErrors = {
-      email: !emailValidation(formData.email),
-      name: !nameValidation(formData.name),
-      password: !passwordValidation(formData.password),
-      confirmPassword: !confirmPasswordValidation(
-        formData.confirmPassword,
-        formData.password
-      ),
-    };
-
-    setErrors(newErrors);
-
-    if (Object.values(newErrors).some((err) => err)) {
+    if (Object.values(errors).some((error) => error)) {
       return;
     }
 
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
           data: { name: formData.name },
         },
       });
-      console.log(data);
+
       if (error) {
         throw error;
       } else {
         alert("회원가입 성공!");
         setFormData({ email: "", name: "", password: "", confirmPassword: "" });
+        navigate("/login");
       }
     } catch (error) {
       console.error(error);
@@ -79,6 +94,7 @@ export default function Signup() {
           value={formData.email}
           placeholder={"email"}
           onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.email}
           errorMsg={"이메일 형식 사용"}
         />
@@ -87,6 +103,7 @@ export default function Signup() {
           value={formData.name}
           placeholder={"name"}
           onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.name}
           errorMsg={"2-8자, 숫자, 한글, 영어만 사용"}
         />
@@ -96,6 +113,7 @@ export default function Signup() {
           value={formData.password}
           placeholder={"password"}
           onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.password}
           errorMsg={"영어 대문자/소문자 + 숫자의 조합 사용"}
         />
@@ -105,6 +123,7 @@ export default function Signup() {
           value={formData.confirmPassword}
           placeholder={"Confirm Password"}
           onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.confirmPassword}
           errorMsg={"비밀번호와 일치하지 않습니다."}
         />

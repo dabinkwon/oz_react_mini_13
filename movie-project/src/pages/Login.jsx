@@ -53,6 +53,8 @@ export default function Login() {
       }
     } catch (error) {
       console.error(error);
+      alert("로그인 실패! 이메일과 비밀번호를 확인하세요.");
+      setFormData({ email: "", password: "" });
     }
   };
 
