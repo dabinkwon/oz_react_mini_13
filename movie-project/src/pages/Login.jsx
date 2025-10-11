@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabase/client";
 import { emailValidation, passwordValidation } from "../validation/validation";
 import { useAuth } from "../context/AuthContext.jsx";
+import { signinList } from "../constants/signList.js";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -62,24 +63,18 @@ export default function Login() {
     <div className={formWrapperStyle}>
       <h1 className="text-4xl mx-auto mb-12 font-semibold">MOVIES</h1>
       <form className={formStyle} onSubmit={handleSubmit}>
-        <InputField
-          name={"email"}
-          value={formData.email}
-          placeholder={"email"}
-          onChange={handleChange}
-          error={errors.email}
-          errorMsg={"올바른 이메일 양식을 입력하세요"}
-        />
-
-        <InputField
-          type="password"
-          name={"password"}
-          value={formData.password}
-          placeholder={"password"}
-          onChange={handleChange}
-          error={errors.password}
-          errorMsg={"비밀번호는 8자 이상이어야 합니다."}
-        />
+        {signinList.map((item) => (
+          <InputField
+            key={item.name}
+            type={item.type}
+            name={item.name}
+            value={formData[item.name]}
+            placeholder={item.placeholder}
+            onChange={handleChange}
+            error={errors[item.name]}
+            errorMsg={item.errorMsg}
+          />
+        ))}
         <button className={btnStyle} type="submit">
           로그인
         </button>
