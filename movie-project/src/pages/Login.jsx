@@ -4,7 +4,7 @@ import { btnStyle, formWrapperStyle, formStyle } from "../style/style";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabase/client";
 import { emailValidation, passwordValidation } from "../validation/validation";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext.jsx";
 
 export default function Login() {
   const [formData, setFormData] = useState({

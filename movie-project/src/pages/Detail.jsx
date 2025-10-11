@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { originImgUrl } from "../api/imgUrl";
 import useFetch from "../hooks/useFetch";
 import Loading from "../component/Loading";
 import DetailMain from "../component/DetailMain";
 import DetailPeople from "../component/DetailPeople";
+import { originImgUrl } from "../api/imgUrl";
 
 export default function Detail() {
   const { movieId } = useParams();
