@@ -1,6 +1,9 @@
 import { useContext } from "react";
 import { useLikeStore } from "../store/LikeMovie";
-import { MovieContext } from "../context/MovieContext";
+import {
+  PopularMovieContext,
+  TopRatedMovieContext,
+} from "../context/MovieContext";
 import MovieCard from "./MovieCard";
 import { GrFavorite } from "react-icons/gr";
 import LikeButton from "./LikeButton";
@@ -12,7 +15,8 @@ const getFavoriteMovies = (movies = [], likeMovie = []) => {
 // https://developer.themoviedb.org/reference/account-add-favorite 참고
 const FavoriteMovie = () => {
   const { likeMovie } = useLikeStore();
-  const { data, topRated } = useContext(MovieContext);
+  const { data } = useContext(PopularMovieContext);
+  const { topRated } = useContext(TopRatedMovieContext);
 
   const favoritePopular = getFavoriteMovies(data?.results, likeMovie);
   const favoriteTopRated = getFavoriteMovies(topRated?.results, likeMovie);

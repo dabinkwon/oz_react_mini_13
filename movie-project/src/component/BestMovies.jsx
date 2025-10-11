@@ -1,7 +1,7 @@
 import MovieCard from "./MovieCard";
 import Loading from "./Loading";
 import NoData from "./NoData";
-import { MovieContext } from "../context/MovieContext";
+import { TopRatedMovieContext } from "../context/MovieContext";
 import { useContext } from "react";
 import CustomSwiper from "./CustomSwiper";
 import { SwiperSlide } from "swiper/react";
@@ -12,7 +12,7 @@ export default function BestMovies() {
     topRated: movies,
     topRatedLoading: loading,
     topRatedError: error,
-  } = useContext(MovieContext);
+  } = useContext(TopRatedMovieContext);
 
   if (error) return <NoData />;
 

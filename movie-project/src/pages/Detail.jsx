@@ -50,7 +50,7 @@ export default function Detail() {
         </div>
       ) : (
         <div
-          className="relative w-screen h-full flex flex-col justify-center items-center p-5 bg-cover bg-center mx-auto"
+          className="relative w-screen h-full flex flex-col justify-center my-5 items-center bg-cover bg-center mx-auto"
           style={{
             backgroundImage: `url(${movie.backdrop_path})`,
           }}

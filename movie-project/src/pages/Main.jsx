@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import MovieCard from "../component/MovieCard";
-import { MovieContext } from "../context/MovieContext";
+import { PopularMovieContext } from "../context/MovieContext";
 import BestMovies from "../component/BestMovies";
 import Loading from "../component/Loading";
 import NoData from "../component/NoData";
@@ -8,8 +8,38 @@ import LikeButton from "../component/LikeButton";
 import DetailButton from "../component/DetailButton";
 
 export default function Main() {
-  const { data, loading, error } = useContext(MovieContext);
-  const movies = data?.results.filter((el) => el.adult === false);
+  const { data, page, setPage, loading, error } =
+    useContext(PopularMovieContext);
+  const [movies, setMovie] = useState([]);
+  const observerRef = useRef();
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [pageParams, setPageParams] = useState([]); // page history관리
+
+  useEffect(() => {
+    if (data?.results) {
+      if (pageParams.includes(page)) return;
+      setMovie((prev) => [
+        ...prev,
+        ...data.results.filter((el) => el.adult === false),
+      ]);
+      setPageParams((prev) => [...prev, page]);
+      setHasNextPage(data.page < data.total_pages);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const firstEntry = entries[0];
+      if (firstEntry.isIntersecting && hasNextPage && !loading) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    });
+
+    if (observerRef.current) observer.observe(observerRef.current);
+    return () => {
+      if (observerRef.current) observer.unobserve(observerRef.current);
+    };
+  }, [hasNextPage, observerRef, setPage]);
 
   if (error) return <NoData />;
 
@@ -41,6 +71,7 @@ export default function Main() {
             ))}
           </section>
         )}
+        <h1 ref={observerRef}>Loading more</h1>
       </div>
     </>
   );
