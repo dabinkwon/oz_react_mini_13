@@ -18,10 +18,14 @@ export default function Main() {
   useEffect(() => {
     if (data?.results) {
       if (pageParams.includes(page)) return;
-      setMovie((prev) => [
-        ...prev,
-        ...data.results.filter((el) => el.adult === false),
-      ]);
+      setMovie((prev) => {
+        const existingMovieIds = new Set(prev.map((movie) => movie.id));
+
+        const newUniqueMovies = data.results
+          .filter((el) => el.adult === false)
+          .filter((el) => !existingMovieIds.has(el.id));
+        return [...prev, ...newUniqueMovies];
+      });
       setPageParams((prev) => [...prev, page]);
       setHasNextPage(data.page < data.total_pages);
     }

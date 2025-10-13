@@ -32,7 +32,7 @@ export default function Layout() {
   return (
     <div className="grid grid-rows-[auto_1fr] w-screen min-h-screen bg-white text-black dark:bg-black dark:text-white ">
       <NavBar handleDarkMode={handleDarkMode} />
-      <main className=" py-5">
+      <main>
         <Outlet />
       </main>
     </div>
