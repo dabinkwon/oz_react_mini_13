@@ -5,6 +5,7 @@ export default function InputField({
   name,
   value,
   onChange,
+  onBlur,
   placeholder,
   error,
   errorMsg,
@@ -18,6 +19,7 @@ export default function InputField({
           name={name}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
           placeholder={placeholder}
           autoComplete="off"
         />

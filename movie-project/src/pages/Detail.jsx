@@ -1,0 +1,67 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
+import Loading from "../component/Loading";
+import DetailMain from "../component/DetailMain";
+import DetailPeople from "../component/DetailPeople";
+import { originImgUrl } from "../api/imgUrl";
+
+export default function Detail() {
+  const { movieId } = useParams();
+  const [detailData, detailLoading] = useFetch(
+    `https://api.themoviedb.org/3/movie/${movieId}?language=ko`
+  );
+  const [peopleData, peopleLoading] = useFetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/credits?language=ko`
+  );
+  const [movie, setMovie] = useState(null);
+
+  useEffect(() => {
+    if (detailData && peopleData) {
+      const actors = peopleData.cast
+        .filter((person) => person.known_for_department === "Acting")
+        .map((actor) => ({
+          name: actor.original_name,
+          character: actor.character,
+          profile_path: actor.profile_path,
+        }));
+      setMovie({
+        title: detailData.title,
+        vote_average: detailData.vote_average,
+        overview: detailData.overview,
+        genres: detailData?.genres.map((el) => el.name).join(", "),
+        backdrop_path: `${originImgUrl}${detailData.backdrop_path}`,
+        actors: actors,
+      });
+    }
+  }, [detailData, peopleData]);
+
+  const isLoading = peopleLoading || detailLoading || !movie;
+
+  return (
+    <>
+      {isLoading ? (
+        <div className="w-full mt-5">
+          <Loading width="70px" height="30px" className="mb-3" />
+          <Loading width="100%" height="400px" className="mb-4" />
+          <Loading width="60px" height="25px" className="mb-2" />
+          <Loading width="80%" height="100px" className="mb-4" />
+          <Loading width="80px" height="120px" count={5} />
+        </div>
+      ) : (
+        <div
+          className="relative w-screen h-full flex flex-col justify-center my-5 items-center bg-cover bg-center mx-auto"
+          style={{
+            backgroundImage: `url(${movie.backdrop_path})`,
+          }}
+        >
+          <div className="absolute inset-0 bg-gray-400/70 z-0"></div>
+          <div className="z-10">
+            <DetailMain movie={movie} />
+            <DetailPeople actors={movie.actors} />
+          </div>
+        </div>
+      )}
+    </>
+  );
+}

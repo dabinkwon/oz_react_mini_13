@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Main from "../pages/Main";
-import Detail from "../pages/Detail";
-import Layout from "../component/Layout";
-import { MovieProvider } from "../context/MovieContext";
-import Search from "../pages/Search";
-import Signup from "../pages/Signup";
-import Login from "../pages/Login";
-import MyPage from "../pages/MyPage";
+import Main from "./pages/Main";
+import Detail from "./pages/Detail";
+import Layout from "./component/Layout";
+import { MovieProvider } from "./context/MovieContext";
+import Search from "./pages/Search";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import MyPage from "./pages/MyPage";
 
 function App() {
   return (

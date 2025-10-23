@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiKey } from "../api/apiConfig";
 
-export default function useFetch(url) {
+export default function useFetch(url, page) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,7 +28,6 @@ export default function useFetch(url) {
       }
     };
     fetchData();
-  }, [ url]);
-  return [ data, loading, error ];
+  }, [url, page]);
+  return [data, loading, error];
 }
-

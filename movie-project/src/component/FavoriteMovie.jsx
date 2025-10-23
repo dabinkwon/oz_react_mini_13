@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import { useLikeStore } from "../store/LikeMovie";
-import { MovieContext } from "../context/MovieContext";
+import {
+  PopularMovieContext,
+  TopRatedMovieContext,
+} from "../context/MovieContext";
 import MovieCard from "./MovieCard";
 import { GrFavorite } from "react-icons/gr";
-import { Link } from "react-router-dom";
+import LikeButton from "./LikeButton";
 
 const getFavoriteMovies = (movies = [], likeMovie = []) => {
   return movies.filter((movie) => likeMovie.includes(movie.id));
@@ -12,7 +15,8 @@ const getFavoriteMovies = (movies = [], likeMovie = []) => {
 // https://developer.themoviedb.org/reference/account-add-favorite 참고
 const FavoriteMovie = () => {
   const { likeMovie } = useLikeStore();
-  const { data, topRated } = useContext(MovieContext);
+  const { data } = useContext(PopularMovieContext);
+  const { topRated } = useContext(TopRatedMovieContext);
 
   const favoritePopular = getFavoriteMovies(data?.results, likeMovie);
   const favoriteTopRated = getFavoriteMovies(topRated?.results, likeMovie);
@@ -20,9 +24,21 @@ const FavoriteMovie = () => {
   const allFavoriteMovies = [...favoritePopular, ...favoriteTopRated];
 
   return (
-    <div className="flex gap-5 flex-wrap justify-evenly">
+    <div className="flex gap-5 flex-wrap">
       {allFavoriteMovies.length > 0 ? (
-        allFavoriteMovies.map((el) => <MovieCard key={el.id} movie={el} />)
+        allFavoriteMovies.map((el) => (
+          <div key={el.id} className="relative group w-[250px] h-[360px]">
+            <MovieCard
+              movie={el}
+              className="h-full"
+              imgClassName="h-[340px] rounded-md"
+            />
+
+            <div className="absolute top-25 left-17  bg-white/50 flex justify-center items-center w-30 h-30 rounded-full text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
+              <LikeButton movie={el} heartSize={"size-15"} />
+            </div>
+          </div>
+        ))
       ) : (
         <div className="w-full h-[250px] flex flex-col gap-3 justify-center items-center">
           <GrFavorite className="text-7xl" />
